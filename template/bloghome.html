@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block blogactive%}active{% endblock blogactive %}
+{% block css %}
+<style>
+  .container {
+    min-height: 100vh;
+  }
+</style>
+{% endblock css %}
+{% block body %}
+<div class="container">
+  <h1 class="py-3 text-center">Welcome to My blog</h1>
+  {% for blog in blogs %}
+  <div class="card text-white bg-secondary mb-3 " style="max-width: 80rem;">
+    <div class="card-body">
+      <h3 class="card-title "><a href="/blogpost/{{blog.slug}}" class="text-dark">{{blog.title}}</a></h3>
+      <p class="card-text ">{{blog.short_desc|slice:245}}...</p>
+      <a href="/blogpost/{{blog.slug}}"><button type="button" class="btn btn-outline-light btn-sm">Read more...</button></a>
+    </div>
+  </div>
+  {%endfor%}
+  <div class="my-3">
+    {%if prev %}
+    <button class="btn btn-success"><a class="text-light" href="/blog?page={{prev}}">&laquo; Previous</a></button>
+    {%else %}
+    <button class="btn btn-success"><a class="text-light" href="#">&laquo; Previous</a></button>
+    {% endif %}
+
+    {%if nxt %}
+    <button class="btn btn-success float-right"><a class="text-light" href="/blog?page={{nxt}}">Next &raquo;</a></button>
+    {%else %}
+    <button class="btn btn-success float-right"><a class="text-light" href="#">Next &raquo;</a></button>
+    {% endif %}
+  </div>
+</div>
+{% endblock body %}
